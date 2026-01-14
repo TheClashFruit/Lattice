@@ -16,5 +16,5 @@
   "OptionalDependencies": {},
   "DisabledByDefault": false,
   "IncludesAssetPack": false,
-  "Main": "me.theclashfruit.hycord.HyCordPlugin"
+  "Main": "me.theclashfruit.lattice.LatticePlugin"
 }

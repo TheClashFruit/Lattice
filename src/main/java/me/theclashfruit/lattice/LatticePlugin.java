@@ -1,50 +1,37 @@
-package me.theclashfruit.hycord;
+package me.theclashfruit.lattice;
 
-import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.logger.HytaleLogger;
-import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.event.events.player.PlayerChatEvent;
-import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.util.Config;
 import discord4j.common.util.Snowflake;
 import discord4j.core.DiscordClient;
-import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.lifecycle.ReadyEvent;
 import discord4j.core.event.domain.message.MessageCreateEvent;
-import discord4j.core.event.domain.message.MessageEvent;
-import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.User;
-import discord4j.core.object.entity.Webhook;
-import discord4j.core.object.entity.channel.MessageChannel;
-import discord4j.core.object.entity.channel.TextChannel;
-import me.theclashfruit.hycord.events.ChatEvent;
-import me.theclashfruit.hycord.util.HyCordConfig;
+import me.theclashfruit.lattice.events.ChatEvent;
+import me.theclashfruit.lattice.util.LatticeConfig;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
-import java.util.Objects;
-import java.util.logging.Level;
 
-public class HyCordPlugin extends JavaPlugin {
+public class LatticePlugin extends JavaPlugin {
     public static DiscordClient client;
     public static GatewayDiscordClient gateway;
 
-    public static Config<HyCordConfig> config;
+    public static Config<LatticeConfig> config;
 
     public static HytaleLogger LOGGER;
 
-    public HyCordPlugin(@Nonnull JavaPluginInit init) {
+    public LatticePlugin(@Nonnull JavaPluginInit init) {
         super(init);
 
         LOGGER = this.getLogger();
-        config = this.withConfig("HyCord", HyCordConfig.CODEC);
+        config = this.withConfig("Lattice", LatticeConfig.CODEC);
 
     }
 
@@ -57,7 +44,7 @@ public class HyCordPlugin extends JavaPlugin {
 
         client = DiscordClient.create(config.get().token);
         client.withGateway(gateway -> {
-            HyCordPlugin.gateway = gateway;
+            LatticePlugin.gateway = gateway;
 
             gateway.getEventDispatcher()
                     .on(ReadyEvent.class)

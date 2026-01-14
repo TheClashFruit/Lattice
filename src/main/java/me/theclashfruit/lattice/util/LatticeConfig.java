@@ -1,10 +1,10 @@
-package me.theclashfruit.hycord.util;
+package me.theclashfruit.lattice.util;
 
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 
-public class HyCordConfig {
-    public static final BuilderCodec<HyCordConfig> CODEC = BuilderCodec.builder(HyCordConfig.class, HyCordConfig::new)
+public class LatticeConfig {
+    public static final BuilderCodec<LatticeConfig> CODEC = BuilderCodec.builder(LatticeConfig.class, LatticeConfig::new)
             .append(
                     new KeyedCodec<>("Token", BuilderCodec.STRING),
                     (config, value, info) -> config.token = value,
@@ -37,7 +37,7 @@ public class HyCordConfig {
             .add()
             .build();
 
-    public HyCordConfig() {}
+    public LatticeConfig() {}
 
     public String token = "your_token_here";
     public String channel_id = "";

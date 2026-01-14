@@ -1,10 +1,9 @@
-package me.theclashfruit.hycord.events;
+package me.theclashfruit.lattice.events;
 
 import com.hypixel.hytale.server.core.event.events.player.PlayerChatEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import discord4j.common.util.Snowflake;
-import me.theclashfruit.hycord.HyCordPlugin;
-import me.theclashfruit.hycord.util.HyCordConfig;
+import me.theclashfruit.lattice.LatticePlugin;
 import reactor.core.publisher.Mono;
 
 public class ChatEvent {
@@ -12,16 +11,16 @@ public class ChatEvent {
         PlayerRef sender = event.getSender();
         String content = event.getContent();
 
-        String webhook = HyCordPlugin.config.get().webhook_id;
+        String webhook = LatticePlugin.config.get().webhook_id;
 
-        HyCordPlugin.client
+        LatticePlugin.client
                 .withGateway((gateway) -> {
                     return gateway.getWebhookById(Snowflake.of(webhook))
                             .flatMap(hook -> {
                                 try {
                                     return hook.execute().withUsername(sender.getUsername()).withContent(content);
                                 } catch (Exception e) {
-                                    HyCordPlugin.LOGGER.atSevere().log("Error while executing webhook", e);
+                                    LatticePlugin.LOGGER.atSevere().log("Error while executing webhook", e);
                                     return Mono.error(e);
                                 }
                             }).then();
