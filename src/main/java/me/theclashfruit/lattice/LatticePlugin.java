@@ -34,6 +34,23 @@ public class LatticePlugin extends JavaPlugin {
         super.setup();
         config.save();
 
+        var conf = config.get();
+
+        // Do not start unless all info is present in the config.
+        // NOTE: `Enabled` is now deprecated and has no effect.
+        if (conf.discord.token.isEmpty() || conf.discord.token.equals("your_token_here")) {
+            LOGGER.atWarning().log("Please set `Discord.Token` to your token!");
+            return;
+        }
+        if (conf.discord.channel_id.isEmpty()) {
+            LOGGER.atWarning().log("Please set `Discord.ChannelId` to your channel's id!");
+            return;
+        }
+        if (conf.discord.webhook_id.isEmpty()) {
+            LOGGER.atWarning().log("Please set `Discord.WebhookId` to your webhooks's id or full url!");
+            return;
+        }
+
         jda = JDABuilder
                 .createDefault(config.get().discord.token)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)

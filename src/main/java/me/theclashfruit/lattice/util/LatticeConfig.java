@@ -33,6 +33,7 @@ public class LatticeConfig {
 
     public LatticeConfig() {}
 
+    @Deprecated
     public boolean enabled = false;
 
     public String chat_prefix = "[Discord]";
