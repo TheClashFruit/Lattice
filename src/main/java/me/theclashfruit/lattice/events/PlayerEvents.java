@@ -28,6 +28,10 @@ public class PlayerEvents {
                     webhook = segments[2];
                 else
                     throw new Exception("Invalid webhook url.");
+
+                // replace it with just the id in the config
+                LatticePlugin.config.get().discord.webhook_id = webhook;
+                LatticePlugin.config.save();
             } else {
                 throw new Exception("Webhook is not just the id or a valid discord.com webhook url.");
             }
