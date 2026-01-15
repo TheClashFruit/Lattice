@@ -27,6 +27,8 @@ public class PlayerEvents {
                 var segments = webhookUrl.getPath().split("/");
                 if (segments.length >= 3)
                     webhook = segments[2];
+                else
+                    throw new Exception("Invalid webhook url.");
             } else {
                 throw new Exception("Webhook is not just the id or a valid discord.com webhook url.");
             }
