@@ -10,6 +10,7 @@ import com.hypixel.hytale.server.core.util.Config;
 import me.theclashfruit.lattice.discord.BotEventListener;
 import me.theclashfruit.lattice.events.PlayerEvents;
 import me.theclashfruit.lattice.util.LatticeConfig;
+import me.theclashfruit.lattice.util.ScriptingUtil;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -35,6 +36,8 @@ public class LatticePlugin extends JavaPlugin {
         config.save();
 
         var conf = config.get();
+
+        new ScriptingUtil(this.getDataDirectory());
 
         // Do not start unless all info is present in the config.
         // NOTE: `Enabled` is now deprecated and has no effect.

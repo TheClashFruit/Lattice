@@ -16,8 +16,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly(files("../2026.01.13-50e69c385/Server/HytaleServer.jar"))
+    compileOnly(files("../2026.01.15-c04fdfe10/Server/HytaleServer.jar"))
 
+    implementation "org.mozilla:rhino:$rhino_version"
     implementation("net.dv8tion:JDA:$jda_version") {
         exclude module: 'opus-java'
     }
@@ -43,6 +44,7 @@ shadowJar {
     archiveClassifier = ''
 
     relocate 'net.dv8tion.jda', 'me.theclashfruit.shadow.jda'
+    relocate 'org.mozzila', 'me.theclashfruit.shadow.mozzila'
 }
 
 java {
