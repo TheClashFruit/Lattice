@@ -7,8 +7,10 @@ import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.util.Config;
+import me.theclashfruit.lattice.commands.LatticeCommand;
 import me.theclashfruit.lattice.discord.BotEventListener;
 import me.theclashfruit.lattice.events.PlayerEvents;
+import me.theclashfruit.lattice.util.store.DiscordDataStore;
 import me.theclashfruit.lattice.util.LatticeConfig;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -20,19 +22,31 @@ public class LatticePlugin extends JavaPlugin {
     public static JDA jda;
     public static Config<LatticeConfig> config;
 
+    public static Config<DiscordDataStore> connections;
+
     public static HytaleLogger LOGGER;
+
+    private static LatticePlugin instance;
 
     public LatticePlugin(@Nonnull JavaPluginInit init) {
         super(init);
 
         LOGGER = this.getLogger();
+
         config = this.withConfig("Lattice", LatticeConfig.CODEC);
+        connections = this.withConfig("DiscordData", DiscordDataStore.CODEC);
+
+        instance = this;
     }
 
     @Override
     protected void setup() {
         super.setup();
         config.save();
+        connections.save();
+
+        // Commands
+        this.getCommandRegistry().registerCommand(new LatticeCommand());
 
         var conf = config.get();
 
