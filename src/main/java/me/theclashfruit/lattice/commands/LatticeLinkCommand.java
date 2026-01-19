@@ -32,14 +32,14 @@ public class LatticeLinkCommand extends AbstractPlayerCommand {
                playerRef.sendMessage(
                        Message.join(
                                Message.raw("Run the following command on Discord: ").bold(true),
-                               Message.raw("-link " + code).monospace(true)
+                               Message.raw("/link code:" + code).monospace(true)
                        )
                );
            } else {
                playerRef.sendMessage(Message.raw("You're already have a Discord account linked, if you want to change accounts unlink it first.").bold(true).color(Color.RED));
            }
         } catch (Exception e) {
-            LOGGER.atWarning().withCause(e).log("error error!");
+            LOGGER.atWarning().withCause(e).log("Err:Lattice::LinkError");
 
             playerRef.sendMessage(Message.raw("You're already in the process of linking your account, try again later.").bold(true).color(Color.RED));
         }

@@ -86,12 +86,12 @@ public class BotEventListener extends ListenerAdapter {
                 .color(config.chat_prefix_colour)
                 .bold(true);
 
-        var joined = com.hypixel.hytale.server.core.Message.join(
+        var joined = Message.join(
                 prefix,
-                com.hypixel.hytale.server.core.Message.raw(" "),
-                com.hypixel.hytale.server.core.Message.raw(user.getEffectiveName()),
-                com.hypixel.hytale.server.core.Message.raw(":"),
-                com.hypixel.hytale.server.core.Message.raw(builder.toString()),
+                Message.raw(" "),
+                Message.raw(user.getEffectiveName()),
+                Message.raw(":"),
+                Message.raw(builder.toString()),
                 compiledAttachments
         );
 
@@ -99,6 +99,7 @@ public class BotEventListener extends ListenerAdapter {
         LOGGER.atInfo().log("[Discord] %s:%s %s", user.getEffectiveName(), builder.toString(), String.join(" ", attachments.stream().map(a -> "[" + a.getFileName() + "]").toList()));
     }
 
+    @Deprecated(forRemoval = true)
     private boolean handleCommands(User user, net.dv8tion.jda.api.entities.Message message) {
         try {
             String contents = message.getContentDisplay();
