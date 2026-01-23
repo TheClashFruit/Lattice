@@ -1,30 +1,31 @@
 package me.theclashfruit.lattice.scripting.globals;
 
-import org.luaj.vm2.Globals;
+import me.theclashfruit.lattice.util.TwoArgFunctionWithEvents;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
-import org.luaj.vm2.lib.TwoArgFunction;
 import org.luaj.vm2.lib.VarArgFunction;
-import org.luaj.vm2.lib.ZeroArgFunction;
 
 import static me.theclashfruit.lattice.LatticePlugin.LOGGER;
 
-public class Discord extends TwoArgFunction {
+public class Discord extends TwoArgFunctionWithEvents {
     private static final String[] functions = {
             "set_activity"
     };
 
+    public Discord() {
+        this.packageName = "discord";
+
+        this.addEvent("ready", (fn, args) -> fn.call());
+    }
+
     @Override
     public LuaValue call(LuaValue value, LuaValue env) {
-        Globals globals = env.checkglobals();
+        LuaTable discord = super.call(value, env).checktable();
 
-        LuaTable discord = new LuaTable();
         for (String function : functions) {
             discord.set(function, new DiscordFunction(function));
         }
-
-        env.set("discord", discord);
 
         return discord;
     }
@@ -35,6 +36,7 @@ public class Discord extends TwoArgFunction {
         }
     }
 
+    @Override
     public Varargs invoke(Varargs args) {
         LOGGER.atInfo().log("get called %s", name);
 

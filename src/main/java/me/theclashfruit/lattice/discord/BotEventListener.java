@@ -5,6 +5,7 @@ import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import me.theclashfruit.lattice.LatticePlugin;
+import me.theclashfruit.lattice.scripting.globals.Discord;
 import me.theclashfruit.lattice.util.LinkUtil;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -53,6 +54,8 @@ public class BotEventListener extends ListenerAdapter {
                 LOGGER.atWarning().withCause(e).log("Failed to create guild commands, you may have provided an invalid guild id.");
             }
         }
+
+        Discord.callEvents("ready");
     }
 
     @Override

@@ -29,7 +29,11 @@ public class LuaHandler {
             return;
 
         List<File> files = Arrays.stream(pathFile.listFiles())
-                .filter(f -> f.isFile() && f.getName().endsWith(".lua"))
+                .filter(f ->
+                        f.isFile() &&
+                        f.getName().endsWith(".lua") &&
+                        !f.getName().startsWith("_")
+                )
                 .toList();
 
         if (files.isEmpty())
@@ -39,13 +43,13 @@ public class LuaHandler {
     }
 
     public void shutdown() {
-        // TODO: Implement
+        Events.callEvents("shutdown");
     }
 
     private Globals getGlobals() {
         Globals globals = JsePlatform.standardGlobals();
 
-        // globals.add(new Discord());
+        globals.load(new Discord());
         globals.load(new Events());
 
         return globals;

@@ -67,6 +67,7 @@ public class LatticePlugin extends JavaPlugin {
             return;
         }
 
+        luaHandler.setup(this.getDataDirectory().resolve("scripts"));
         jda = JDABuilder
                 .createDefault(config.get().discord.token)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
@@ -77,9 +78,6 @@ public class LatticePlugin extends JavaPlugin {
         this.getEventRegistry().registerGlobal(PlayerChatEvent.class, PlayerEvents::onPlayerChat);
         this.getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerEvents::onPlayerReady);
         this.getEventRegistry().registerGlobal(PlayerDisconnectEvent.class, PlayerEvents::onPlayerDisconnect);
-
-        // Setup lua stuff last.
-        luaHandler.setup(this.getDataDirectory().resolve("scripts"));
     }
 
     @Override
@@ -87,5 +85,6 @@ public class LatticePlugin extends JavaPlugin {
         super.shutdown();
 
         jda.shutdown();
+        luaHandler.shutdown();
     }
 }
