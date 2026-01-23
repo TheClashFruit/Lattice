@@ -54,6 +54,7 @@ shadowJar {
     archiveClassifier = ''
 
     relocate 'net.dv8tion.jda', 'me.theclashfruit.shadow.jda'
+    relocate 'org.luaj', 'me.theclashfruit.shadow.luaj'
 }
 
 java {

@@ -77,6 +77,9 @@ public class LatticePlugin extends JavaPlugin {
         this.getEventRegistry().registerGlobal(PlayerChatEvent.class, PlayerEvents::onPlayerChat);
         this.getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerEvents::onPlayerReady);
         this.getEventRegistry().registerGlobal(PlayerDisconnectEvent.class, PlayerEvents::onPlayerDisconnect);
+
+        // Setup lua stuff last.
+        luaHandler.setup(this.getDataDirectory().resolve("scripts"));
     }
 
     @Override
