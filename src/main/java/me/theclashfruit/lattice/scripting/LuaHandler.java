@@ -1,5 +1,7 @@
 package me.theclashfruit.lattice.scripting;
 
+import me.theclashfruit.lattice.scripting.globals.Discord;
+import me.theclashfruit.lattice.scripting.globals.Events;
 import org.jetbrains.annotations.NotNull;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaValue;
@@ -41,7 +43,12 @@ public class LuaHandler {
     }
 
     private Globals getGlobals() {
-        return JsePlatform.standardGlobals();
+        Globals globals = JsePlatform.standardGlobals();
+
+        // globals.add(new Discord());
+        globals.load(new Events());
+
+        return globals;
     }
 
     private void loadScript(File file) {

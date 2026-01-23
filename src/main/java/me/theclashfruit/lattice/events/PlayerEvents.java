@@ -6,7 +6,9 @@ import com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import me.theclashfruit.lattice.LatticePlugin;
+import me.theclashfruit.lattice.scripting.globals.Events;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import org.luaj.vm2.LuaValue;
 
 import java.net.URI;
 import java.util.Map;
@@ -59,6 +61,7 @@ public class PlayerEvents {
 
     public static void onPlayerReady(PlayerReadyEvent event) {
         Player player = event.getPlayer();
+        Events.callEvents("player_ready", player);
 
         if(player.getWorld() != null) {
             String joinMessage = String.format(LatticePlugin.config.get().discord.messages.join, player.getDisplayName(), player.getWorld().getName());
