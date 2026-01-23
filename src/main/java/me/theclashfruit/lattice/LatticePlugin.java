@@ -11,6 +11,7 @@ import com.hypixel.hytale.server.core.util.Config;
 import me.theclashfruit.lattice.commands.LatticeCommand;
 import me.theclashfruit.lattice.discord.BotEventListener;
 import me.theclashfruit.lattice.events.PlayerEvents;
+import me.theclashfruit.lattice.scripting.LuaHandler;
 import me.theclashfruit.lattice.util.store.DiscordDataStore;
 import me.theclashfruit.lattice.util.LatticeConfig;
 import net.dv8tion.jda.api.JDA;
@@ -21,9 +22,11 @@ import javax.annotation.Nonnull;
 
 public class LatticePlugin extends JavaPlugin {
     public static JDA jda;
-    public static Config<LatticeConfig> config;
 
+    public static Config<LatticeConfig> config;
     public static Config<DiscordDataStore> connections;
+
+    public static LuaHandler luaHandler;
 
     public static HytaleLogger LOGGER;
 
@@ -34,6 +37,8 @@ public class LatticePlugin extends JavaPlugin {
 
         config = this.withConfig("Lattice", LatticeConfig.CODEC);
         connections = this.withConfig("DiscordData", DiscordDataStore.CODEC);
+
+        luaHandler = new LuaHandler();
     }
 
     @Override
