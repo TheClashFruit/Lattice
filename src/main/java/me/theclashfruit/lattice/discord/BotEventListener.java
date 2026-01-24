@@ -103,6 +103,8 @@ public class BotEventListener extends ListenerAdapter {
 
         Universe.get().sendMessage(joined);
         LOGGER.atInfo().log("[Discord] %s:%s %s", user.getEffectiveName(), builder.toString(), String.join(" ", attachments.stream().map(a -> "[" + a.getFileName() + "]").toList()));
+
+        Discord.callEvents("message_received", event);
     }
 
     @Deprecated(forRemoval = true)
@@ -175,5 +177,7 @@ public class BotEventListener extends ListenerAdapter {
                 event.reply("You don't have a Hytale account linked.").setEphemeral(true).queue();
             }
         }
+
+        Discord.callEvents("slash_command_interaction", event);
     }
 }

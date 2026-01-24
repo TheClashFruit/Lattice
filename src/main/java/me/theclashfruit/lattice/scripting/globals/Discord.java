@@ -1,6 +1,8 @@
 package me.theclashfruit.lattice.scripting.globals;
 
 import me.theclashfruit.lattice.util.TwoArgFunctionWithEvents;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
@@ -17,6 +19,18 @@ public class Discord extends TwoArgFunctionWithEvents {
         this.packageName = "discord";
 
         this.addEvent("ready", (fn, args) -> fn.call());
+        this.addEvent("message_received", (fn, args) -> {
+            var event = (MessageReceivedEvent) args[0];
+            var msg = event.getMessage();
+
+            fn.call(LuaValue.valueOf(msg.getContentRaw()));
+        });
+        this.addEvent("slash_command_interaction", (fn, args) -> {
+            var event = (SlashCommandInteractionEvent) args[0];
+            var name = event.getName();
+
+            fn.call(LuaValue.valueOf(name));
+        });
     }
 
     @Override
