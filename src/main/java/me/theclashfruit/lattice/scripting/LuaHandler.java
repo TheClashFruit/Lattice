@@ -16,9 +16,7 @@ import java.util.List;
 import static me.theclashfruit.lattice.LatticePlugin.LOGGER;
 
 public class LuaHandler {
-    public LuaHandler() {
-
-    }
+    public LuaHandler() {}
 
     public void setup(@NotNull Path path) {
         File pathFile = path.toFile();

@@ -67,7 +67,9 @@ public class LatticePlugin extends JavaPlugin {
             return;
         }
 
-        luaHandler.setup(this.getDataDirectory().resolve("scripts"));
+        if (conf.features.scripting)
+            luaHandler.setup(this.getDataDirectory().resolve("scripts"));
+
         jda = JDABuilder
                 .createDefault(config.get().discord.token)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)

@@ -18,6 +18,12 @@ public class LatticeConfig {
             )
             .add()
             .append(
+                    new KeyedCodec<>("Features", FeaturesConfig.CODEC),
+                    (config, value, info) -> config.features = value,
+                    (config, info) -> config.features
+            )
+            .add()
+            .append(
                     new KeyedCodec<>("ChatPrefix", BuilderCodec.STRING),
                     (config, value, info) -> config.chat_prefix = value,
                     (config, info) -> config.chat_prefix
@@ -40,6 +46,8 @@ public class LatticeConfig {
     public String chat_prefix_colour = "#5865F2";
 
     public DiscordConfig discord = new DiscordConfig();
+
+    public FeaturesConfig features = new FeaturesConfig();
 
     public static class DiscordConfig {
         public static final BuilderCodec<DiscordConfig> CODEC = BuilderCodec.builder(DiscordConfig.class, DiscordConfig::new)
@@ -104,5 +112,18 @@ public class LatticeConfig {
             public String join = "%s joined %s.";
             public String leave = "%s left.";
         }
+    }
+
+    public static class FeaturesConfig {
+        public static BuilderCodec<FeaturesConfig> CODEC = BuilderCodec.builder(FeaturesConfig.class, FeaturesConfig::new)
+                .append(
+                        new KeyedCodec<>("Scripting", BuilderCodec.BOOLEAN),
+                        (config, value, info) -> config.scripting = value,
+                        (config, info) -> config.scripting
+                )
+                .add()
+                .build();
+
+        public boolean scripting = false;
     }
 }
