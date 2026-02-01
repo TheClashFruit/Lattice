@@ -1,6 +1,9 @@
+> [!IMPORTANT]
+> The Lattice repo has moved to https://tangled.org/theclashfruit.me/lattice.
+
 # Lattice
 
-A Simple (for now) Discord chat bridge for Hytale.
+A simple (for now) Discord chat bridge for Hytale.
 
 ## Setup
 
